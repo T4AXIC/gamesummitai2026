@@ -98,7 +98,7 @@ with st.sidebar:
     if in_browser:
         st.info(
             "Web demo: runs entirely in your browser with the offline model. "
-            "To use OpenAI, Grok, Gemini or Ollama, run the app locally (run.bat) or with Docker."
+            "To use OpenAI, Grok, Gemini, Ollama or a llama.cpp server, run the app locally (run.bat) or with Docker."
         )
     model = st.text_input("Model (optional)", value="", placeholder=PROVIDERS[provider]["model"])
     enabled = st.multiselect("Data types to protect", ALL_ENTITIES, default=list(SECTORS[sector]["entities"]))
