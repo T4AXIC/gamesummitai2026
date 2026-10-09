@@ -5,8 +5,8 @@
         "n_gold": 1144,
         "recall": 0.972,
         "protected": 0.974,
-        "precision": 0.906,
-        "n_pred": 959
+        "precision": 0.904,
+        "n_pred": 956
       },
       "PHONE": {
         "n_gold": 184,
@@ -40,7 +40,7 @@
         "n_gold": 117,
         "recall": 0.803,
         "protected": 0.803,
-        "precision": 0.785,
+        "precision": 0.777,
         "n_pred": 121
       },
       "ADDRESS": {
@@ -54,8 +54,8 @@
         "n_gold": 2065,
         "recall": 0.938,
         "protected": 0.949,
-        "precision": 0.93,
-        "n_pred": 1725
+        "precision": 0.928,
+        "n_pred": 1722
       }
     },
     "Pərdə without name detector": {
@@ -98,7 +98,7 @@
         "n_gold": 117,
         "recall": 0.803,
         "protected": 0.803,
-        "precision": 0.785,
+        "precision": 0.777,
         "n_pred": 121
       },
       "ADDRESS": {
@@ -112,7 +112,7 @@
         "n_gold": 2065,
         "recall": 0.399,
         "protected": 0.412,
-        "precision": 0.96,
+        "precision": 0.958,
         "n_pred": 766
       }
     },
@@ -128,7 +128,7 @@
         "n_gold": 184,
         "recall": 1.0,
         "protected": 1.0,
-        "precision": 0.946,
+        "precision": 0.58,
         "n_pred": 317
       },
       "EMAIL": {
@@ -170,7 +170,7 @@
         "n_gold": 2065,
         "recall": 0.174,
         "protected": 0.239,
-        "precision": 0.964,
+        "precision": 0.729,
         "n_pred": 494
       }
     }
@@ -304,7 +304,7 @@
         "n_gold": 9,
         "recall": 1.0,
         "protected": 1.0,
-        "precision": 1.0,
+        "precision": 0.5,
         "n_pred": 18
       },
       "EMAIL": {
@@ -346,7 +346,7 @@
         "n_gold": 76,
         "recall": 0.171,
         "protected": 0.289,
-        "precision": 1.0,
+        "precision": 0.591,
         "n_pred": 22
       }
     }

@@ -6,7 +6,8 @@ Writes eval/results.json (test split) or eval/results_dev.json (dev split) and p
 Metrics, per entity group:
   recall      gold values masked by a detection of the right type (>=50% of characters)
   protected   gold values masked by any detection (>=90% of characters); 1 - protected = leak rate
-  precision   detections that overlap any labelled personal value
+  precision   detections that overlap an in-scope labelled value of the same type; detections that
+              touch only out-of-scope labels (city, time, age, zip) are left out of the count
 """
 from __future__ import annotations
 
@@ -96,10 +97,14 @@ def score(rows, system):
             else:
                 failures.append({"uid": row.get("uid"), "missed": lab["value"], "label": lab["label"], "text": text})
         for ps, pe, pg in preds:
+            hits = [l for l in labels if ps < l["end"] and pe > l["start"]]
+            in_scope = [l for l in hits if l["label"] in GOLD_GROUP]
+            if hits and not in_scope:
+                continue  # touches only out-of-scope labels (city, time, age, zip): neither right nor wrong
             st = stats[pg]
             st["pred"] += 1
-            if any(ps < l["end"] and pe > l["start"] for l in labels):
-                st["pred_ok"] += 1
+            if any(GOLD_GROUP[l["label"]] == pg for l in in_scope):
+                st["pred_ok"] += 1  # counted correct only when it hits an in-scope value of the same type
     return stats, failures
 
 

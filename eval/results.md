@@ -1,7 +1,7 @@
 ### LocalDoc test (held-out) (1000 texts)
 | System | Protected (all PII) | Leak rate | Precision |
 |---|---|---|---|
-| Pərdə | 94.9% | 5.1% | 93.0% |
+| Pərdə | 94.9% | 5.1% | 92.8% |
   MISS BUILDINGNUM: '8' :: Təchizatçı materialları Callan's Lane, 8, AZ 1801 ünvanına çatdıracaq. Xahiş edirik, çatdırılan materialı qəbul etmək üç
   MISS BUILDINGNUM: '8' :: Təchizatçı materialları Callan's Lane, 8, AZ 1801 ünvanına çatdıracaq. Xahiş edirik, çatdırılan materialı qəbul etmək üç
   MISS BUILDINGNUM: '3' :: 21:42:10 Veysəl: Mənim ünvanım: V.PLOTNİKOV pr. 3, Yevlax, AZ 5327.
@@ -22,17 +22,17 @@ Mövzu: Unikal İmza Analizi Məktubu - Zəhmət olmasa, təhlil üçün yazıl�
   MISS SURNAME: 'İsmayılqızı' :: Mənim adım Ceyla İsmayılqızıdır və mənim 57 yaşım var. Bu təlim qrupunun bir hissəsi olmaqdan çox həyəcanlıyam.
   MISS BUILDINGNUM: '5' :: Resept formasında, zəhmət olmasa, sahələri 0U51BU4, Nisə və 5 ilə doldurun.
   MISS STREET: 'BAKI-BATUMİ küç.' :: Nəzərinizə çatdırırıq ki, Lətifə Məhərrəmzadə yüngül dəmir yolu stansiyası, BAKI-BATUMİ küç. 0 qazıntı sahəsinə ən yaxın
-| Pərdə without name detector | 41.2% | 58.8% | 96.0% |
-| Generic regex baseline | 23.9% | 76.1% | 96.4% |
+| Pərdə without name detector | 41.2% | 58.8% | 95.8% |
+| Generic regex baseline | 23.9% | 76.1% | 72.9% |
 Per entity (Pərdə):
 | Entity | Gold | Recall (right type) | Protected | Precision |
 |---|---|---|---|---|
-| PERSON | 1144 | 97.2% | 97.4% | 90.6% |
+| PERSON | 1144 | 97.2% | 97.4% | 90.4% |
 | PHONE | 184 | 100.0% | 100.0% | 100.0% |
 | EMAIL | 132 | 100.0% | 100.0% | 99.2% |
 | ID_NUMBER | 165 | 100.0% | 100.0% | 100.0% |
 | CARD | 25 | 100.0% | 100.0% | 100.0% |
-| DATE | 117 | 80.3% | 80.3% | 78.5% |
+| DATE | 117 | 80.3% | 80.3% | 77.7% |
 | ADDRESS | 298 | 75.2% | 82.6% | 97.1% |
 ### Hand-written AZ/RU/EN cases (20 texts)
 | System | Protected (all PII) | Leak rate | Precision |
@@ -40,7 +40,7 @@ Per entity (Pərdə):
 | Pərdə | 98.7% | 1.3% | 96.6% |
   MISS GIVENNAME: 'Ульвия' :: zəng: 0705552211 - Ульвия, deyir ki kuryer gəlməyib, ünvan Azadlıq prospekti 33
 | Pərdə without name detector | 56.6% | 43.4% | 100.0% |
-| Generic regex baseline | 28.9% | 71.1% | 100.0% |
+| Generic regex baseline | 28.9% | 71.1% | 59.1% |
 Per entity (Pərdə):
 | Entity | Gold | Recall (right type) | Protected | Precision |
 |---|---|---|---|---|
