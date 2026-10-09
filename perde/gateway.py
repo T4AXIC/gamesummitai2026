@@ -110,13 +110,13 @@ def run(text: str, task: str, provider: str = "mock", entities=None, model: str 
 
 
 def _audit(m: MaskResult, outgoing: str, provider: str, model: str, latency_ms: int) -> None:
-    """Append-only log. Stores hashes and counts, never raw personal data."""
+    """Append-only log. Stores counts and a hash of the already-masked outgoing text, never raw
+    personal data. No hash of the raw input: a short input (one phone number) could be brute-forced."""
     record = {
         "ts": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "provider": provider,
         "model": model,
         "entities_masked": m.counts(),
-        "input_sha256": hashlib.sha256(m.original.encode()).hexdigest(),
         "outgoing_sha256": hashlib.sha256(outgoing.encode()).hexdigest(),
         "leak_check": "passed",
         "latency_ms": latency_ms,
