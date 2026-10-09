@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+audit_log.jsonl
+.claude/
+
+# local planning notes, not part of the submission
+PLAN.md
+SIMPLE_IDEAS.md
+IDEAS_OPENSOURCE.md
