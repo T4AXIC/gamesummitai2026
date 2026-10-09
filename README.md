@@ -24,8 +24,8 @@ qeydə alındı… 055 412 33 90                      qeydə alındı… [PHONE_
 
 - **The user:** an operator who handles customer requests at a bank, a mobile operator, or a public service centre (complaints, applications, tickets).
 - **Today:** these teams either don't use AI at all, or staff copy customer data into public chatbots. Neither is acceptable. Azerbaijan's Law on Personal Data (2010) restricts handing personal data to third parties.
-- **With Pərdə:** the same staff use any AI model for summaries, replies, classification and translation. The provider only ever sees tags.
-- **The metric that matters:** the **leak rate**, meaning the share of personal values that reach the AI provider. It falls from 76.1% with a generic filter to 5.1% with Pərdə (held-out test, details in [TESTING.md](TESTING.md)). A second, exact-match check then **blocks** any request where a detected value would still leave unmasked.
+- **With Pərdə:** the same staff use any OpenAI-compatible model for summaries, replies, classification and translation. Personal data the detectors find, in both the customer text and the instruction, reaches the provider only as tags.
+- **The metric that matters:** the **leak rate**, meaning the share of personal values that reach the AI provider. It falls from 76.1% with a generic filter to 5.1% with Pərdə (held-out test, details in [TESTING.md](TESTING.md)). Raw pasting, today's alternative, leaks 100%. A second check then **blocks** any request where a detected value would still leave unmasked; it cannot catch values the detectors missed.
 
 ## 2. Prototype and use of AI
 
@@ -35,10 +35,10 @@ The working core scenario is to paste a customer text, pick a sector and a task,
 2. The exact text the AI provider receives
 3. The provider's answer, with the real values restored
 
-**Where AI does the work:** the external LLM (OpenAI, xAI Grok, Gemini, or a local Ollama model) does the actual task: summarising, drafting a reply in Azerbaijani or Russian, classifying the ticket. Pərdə is what makes it *permissible* to use that model on real data.
+**Where AI does the work:** the external LLM (OpenAI, xAI Grok, Gemini, or a local model via Ollama or llama.cpp) does the actual task: summarising, drafting a reply in Azerbaijani or Russian, classifying the ticket. Pərdə is what makes it *permissible* to use that model on real data.
 
 **Why detection is not an LLM:** sending text to an LLM to find the personal data would leak it to that LLM, which defeats the purpose. So detection is local, deterministic and auditable. It combines:
-- validated patterns for Azerbaijani identifiers (FIN, ID card `AZE…`/`AA…`, passport, driver licence, VÖEN, AZ IBAN with a mod-97 checksum, card numbers with a Luhn check, +994 mobile and landline formats, car plates, dates)
+- validated patterns for Azerbaijani identifiers (FIN, ID card `AZE…`/`AA…`, passport, driver licence, VÖEN, AZ IBAN (mod-97 checked; invalid ones are still masked), card numbers (Luhn checked, or masked by context), +994 mobile and landline formats, car plates, dates)
 - a name detector built for Azerbaijani: a name lexicon, surname morphology (`-ov/-ova`, `-li/-lı`, `-zadə`, `-oğlu`), patronymics (`oğlu`/`qızı`), stripping of Azerbaijani case endings (`Rənanın` → `[PERSON_1]nın`), and Cyrillic and ASCII spellings
 - street patterns (`küçəsi`, `prospekti`, `ул.`) with house and flat numbers
 
@@ -68,12 +68,12 @@ Full report with failures: **[TESTING.md](TESTING.md)**. Summary:
 
 - The test split was fixed by seed and never used for tuning. The name lexicon was built from a separate 2,000-row dev split.
 - Reproduce with `python eval/fetch_sample.py && python eval/evaluate.py`.
-- There are 11 unit tests covering checksums, phone formats, tag consistency, restoration and the leak blocker (`pytest`).
+- There are 17 unit tests covering checksums, phone formats, tag consistency, restoration, the leak check and masking of the instruction field (`pytest`).
 
 ## 4. Feasibility
 
 - **Data needed:** none to start. It runs on rules and a lexicon, and each organisation can extend the lexicon and patterns.
-- **Running cost:** masking is free, takes about 0.14 ms per message on one CPU core, and needs no GPU. The LLM cost is unchanged, because the masked text is the same length.
+- **Running cost:** masking is free, takes about 0.14 ms per message on one CPU core, and needs no GPU. The LLM cost is roughly unchanged, because tags are about as long as the values they replace.
 - **Deployment:** a Python package and a web UI. It runs on-premises, next to an existing API gateway, or as a proxy.
 - **Next step (4 weeks):**
   1. Pilot on one support queue.
@@ -91,7 +91,11 @@ Generic PII filters are built for English. Azerbaijani personal data has its own
 
 **Live demo (no install, runs in your browser):** https://huggingface.co/spaces/Traxic/perde
 
-**Windows, one click:** download the v1.0 release zip, unzip it and double-click `run.bat`. It needs Python 3.10 or newer. The first run installs the dependencies, then the app opens at http://localhost:8501.
+**Demo video (56 s):** [media/perde-demo.mp4](media/perde-demo.mp4)
+
+**Real-model test:** end-to-end with Gemma 4 E4B on a local llama.cpp server, see [TEST_RESULTS.md](TEST_RESULTS.md).
+
+**Windows, one click:** download the latest release zip, unzip it and double-click `run.bat`. It needs Python 3.10 or newer. The first run installs the dependencies, then the app opens at http://localhost:8501.
 
 **Docker (any OS, suits on-premises servers):**
 
