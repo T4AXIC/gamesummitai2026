@@ -54,6 +54,22 @@ def test_no_leak_after_masking():
     assert leaked_values(r.masked, r.mapping) == []
 
 
+def test_gateway_masks_personal_data_in_the_task_too(tmp_path, monkeypatch):
+    from perde import gateway
+    monkeypatch.setattr(gateway, "AUDIT_PATH", tmp_path / "audit.jsonl")
+    res = gateway.run("Tel 055 412 33 90", "Reply to Rəşad Həsənov, FIN 7XK2M9P", provider="mock")
+    for value in ("Rəşad Həsənov", "7XK2M9P", "055 412 33 90"):
+        assert value not in res.outgoing
+
+
+def test_gateway_blocks_when_no_data_types_selected(tmp_path, monkeypatch):
+    import pytest
+    from perde import gateway
+    monkeypatch.setattr(gateway, "AUDIT_PATH", tmp_path / "audit.jsonl")
+    with pytest.raises(gateway.LeakBlocked):
+        gateway.run("Nərmin Quliyeva FIN 6TR9K2L", "", provider="mock", entities=[])
+
+
 def test_leak_check_catches_unmasked_digits():
     r = mask("Telefon +994 55 765 43 21")
     assert leaked_values("call 0557654321", r.mapping)

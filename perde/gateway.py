@@ -92,9 +92,12 @@ def call_model(provider: str, prompt: str, model: str | None = None) -> tuple[st
 
 
 def run(text: str, task: str, provider: str = "mock", entities=None, model: str | None = None) -> GatewayResult:
-    """Mask `text`, block if anything leaks, send task + masked text, restore the answer."""
-    m = mask(text) if entities is None else mask(text, tuple(entities))
-    outgoing = f"{task.strip()}\n\n---\n{m.masked}" if task.strip() else m.masked
+    """Mask the task and the text together, block if anything leaks, send, restore the answer."""
+    combined = f"{task.strip()}\n\n---\n{text}" if task.strip() else text
+    if entities is not None and not entities and mask(combined).spans:
+        raise LeakBlocked("No data types are selected but personal data was detected; request blocked.")
+    m = mask(combined) if entities is None else mask(combined, tuple(entities))
+    outgoing = m.masked
     leaks = leaked_values(outgoing, m.mapping)
     if leaks:
         raise LeakBlocked(f"{len(leaks)} value(s) would leave unmasked; request blocked.")
