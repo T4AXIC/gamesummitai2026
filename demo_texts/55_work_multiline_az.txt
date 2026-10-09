@@ -1,0 +1,6 @@
+Müştəri: Nərmin Quliyeva
+FIN: 6TR9K2L
+Kart: 4111 1111 1111 1111
+Telefon: 055 412 33 90
+E-poçt: nermin.ticket@example.com
+Problem: mobil tətbiq ödənişi uğursuz göstərir, amma balans azalıb. Qısa dəstək cavabı lazımdır.

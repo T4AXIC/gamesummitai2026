@@ -1,0 +1,3 @@
+Ticket A: Tural Mammadli, ID AA4417852, phone +994-51-777-20-30, cannot log in.
+Ticket B: Nermin Quliyeva, FIN 6TR9K2L, email nermin.queue@example.com, disputes a duplicate charge on card 4111 1111 1111 1111.
+Create separate summaries; do not mix the customers or their issues.
