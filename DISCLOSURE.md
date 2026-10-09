@@ -21,7 +21,8 @@ Pərdə does not depend on any third-party PII library. The general approach (pa
 |---|---|---|
 | streamlit | Apache-2.0 | Web UI |
 | openai (Python SDK) | Apache-2.0 | Client for OpenAI-compatible APIs |
-| pytest | MIT | Unit tests |
+| pytest | MIT | Unit tests (dev only) |
+| python:3.12-slim Docker base image | PSF and Debian licences | Container build |
 
 ## Assistance
 The code and documentation were written with the help of an AI coding assistant (Claude).

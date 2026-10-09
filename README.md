@@ -89,9 +89,20 @@ Generic PII filters are built for English. Azerbaijani personal data has its own
 
 ## Run it
 
+**Windows, one click:** download the v1.0 release zip, unzip it and double-click `run.bat`. It needs Python 3.10 or newer. The first run installs the dependencies, then the app opens at http://localhost:8501.
+
+**Docker (any OS, suits on-premises servers):**
+
+```bash
+docker build -t perde .
+docker run -p 8501:8501 perde
+```
+
+**Manual:**
+
 ```bash
 python -m venv .venv
-.venv/Scripts/pip install -r requirements.txt      # Windows; use .venv/bin/pip on Linux/macOS
+.venv/Scripts/pip install -r requirements-dev.txt   # Windows; use .venv/bin/pip on Linux/macOS
 .venv/Scripts/streamlit run app.py
 ```
 
