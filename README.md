@@ -89,6 +89,8 @@ Generic PII filters are built for English. Azerbaijani personal data has its own
 
 ## Run it
 
+**Live demo (no install, runs in your browser):** https://huggingface.co/spaces/Traxic/perde
+
 **Windows, one click:** download the v1.0 release zip, unzip it and double-click `run.bat`. It needs Python 3.10 or newer. The first run installs the dependencies, then the app opens at http://localhost:8501.
 
 **Docker (any OS, suits on-premises servers):**
