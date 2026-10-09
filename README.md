@@ -109,7 +109,7 @@ python -m venv .venv
 ```
 
 - The default provider is **mock**, which works offline with no key.
-- For a real model, set one of `OPENAI_API_KEY`, `XAI_API_KEY` (Grok) or `GEMINI_API_KEY`, or run Ollama locally. Then pick the provider in the sidebar. Optionally set `PERDE_MODEL`.
+- For a real model, set one of `OPENAI_API_KEY`, `XAI_API_KEY` (Grok) or `GEMINI_API_KEY`, run Ollama locally, or use the `llamacpp` provider for an OpenAI-compatible local server (default `http://127.0.0.1:8080/v1`). Then pick the provider in the sidebar. Optionally set `PERDE_MODEL`.
 - Use it in code:
 
 ```python

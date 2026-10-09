@@ -22,6 +22,12 @@ PROVIDERS = {
         "model": "gemini-2.5-flash",
     },
     "ollama": {"base_url": "http://localhost:11434/v1", "key_env": None, "model": "gemma3"},
+    "llamacpp": {
+        "base_url": "http://127.0.0.1:8080/v1",
+        "base_url_env": "PERDE_LOCAL_BASE_URL",
+        "key_env": None,
+        "model": "gemma-4-E4B",
+    },
     "mock": {"base_url": None, "key_env": None, "model": "mock"},
 }
 
@@ -75,7 +81,8 @@ def call_model(provider: str, prompt: str, model: str | None = None) -> tuple[st
     key = os.environ.get(cfg["key_env"]) if cfg["key_env"] else "ollama"
     if not key:
         raise RuntimeError(f"Set {cfg['key_env']} to use provider '{provider}'.")
-    client = OpenAI(base_url=cfg["base_url"], api_key=key, timeout=60)
+    base_url = os.environ.get(cfg.get("base_url_env", "")) or cfg["base_url"]
+    client = OpenAI(base_url=base_url, api_key=key, timeout=60)
     resp = client.chat.completions.create(
         model=model,
         messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}],
