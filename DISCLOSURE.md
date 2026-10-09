@@ -30,3 +30,6 @@ The code and documentation were written with the help of an AI coding assistant 
 ## Mocks and caches
 - The `mock` provider returns a templated reply built from the tags. It is labelled "[Offline demo model, no external API call]" in its output.
 - No results are cached. The evaluation numbers come from `eval/evaluate.py` and are stored in `eval/results.json`.
+
+## Demo video
+`media/perde-demo.mp4` was rendered by a script during the hackathon. The app footage is real screenshots of the running app, using the offline model. The tags shown come from the real masking engine. The soundtrack is synthesized in code, with no third-party music.
