@@ -45,14 +45,14 @@
       },
       "ADDRESS": {
         "n_gold": 298,
-        "recall": 0.748,
-        "protected": 0.822,
+        "recall": 0.752,
+        "protected": 0.826,
         "precision": 0.971,
         "n_pred": 138
       },
       "ALL": {
         "n_gold": 2065,
-        "recall": 0.937,
+        "recall": 0.938,
         "protected": 0.949,
         "precision": 0.93,
         "n_pred": 1725
@@ -103,15 +103,15 @@
       },
       "ADDRESS": {
         "n_gold": 298,
-        "recall": 0.748,
-        "protected": 0.822,
+        "recall": 0.752,
+        "protected": 0.826,
         "precision": 0.971,
         "n_pred": 138
       },
       "ALL": {
         "n_gold": 2065,
         "recall": 0.399,
-        "protected": 0.411,
+        "protected": 0.412,
         "precision": 0.96,
         "n_pred": 766
       }

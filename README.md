@@ -63,7 +63,7 @@ Full report with failures: **[TESTING.md](TESTING.md)**. Summary:
 | E-mail | 132 | 100% |
 | ID numbers (FIN, ID card, passport, licence, VÖEN) | 165 | 100% |
 | Card numbers | 25 | 100% |
-| Addresses | 298 | 82.2% |
+| Addresses | 298 | 82.6% |
 | Dates | 117 | 80.3% |
 
 - The test split was fixed by seed and never used for tuning. The name lexicon was built from a separate 2,000-row dev split.

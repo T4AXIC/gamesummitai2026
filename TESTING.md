@@ -27,7 +27,7 @@ Out of scope: city, time, age and zip code. These are not personal data on their
 | System | Protected | Leak rate | Precision |
 |---|---|---|---|
 | **Pərdə** | **94.9%** | **5.1%** | 93.0% |
-| Pərdə without name detector | 41.1% | 58.9% | 96.0% |
+| Pərdə without name detector | 41.2% | 58.8% | 96.0% |
 | Generic regex baseline | 23.9% | 76.1% | 96.4% |
 
 | Entity | Values | Recall (right type) | Protected | Precision |
@@ -38,7 +38,7 @@ Out of scope: city, time, age and zip code. These are not personal data on their
 | ID_NUMBER | 165 | 100.0% | 100.0% | 100.0% |
 | CARD | 25 | 100.0% | 100.0% | 100.0% |
 | DATE | 117 | 80.3% | 80.3% | 78.5% |
-| ADDRESS | 298 | 74.8% | 82.2% | 97.1% |
+| ADDRESS | 298 | 75.2% | 82.6% | 97.1% |
 
 ## Results: hand-written cases (20 texts)
 
@@ -55,7 +55,7 @@ Out of scope: city, time, age and zip code. These are not personal data on their
 | `Ульвия` | "zəng: 0705552211 - **Ульвия**, deyir ki…" | A Cyrillic spelling of an Azerbaijani name that isn't in the lexicon, and there is no surname next to it. |
 | `Ələsgər` | "22:48:43 **Ələsgər**: Mənim nömrəm…" | A rare given name, not in the dev-built lexicon. |
 | `İsmayılqızı` | "Mənim adım Ceyla **İsmayılqızıdır**" | A patronymic fused with a suffix (`-qızı` + `-dır`), which isn't handled yet. |
-| `Callan's Lane, 8` | "…materialları **Callan's Lane, 8**…" | A non-Azerbaijani street format. |
+| `8` (building number) | "…materialları Callan's Lane, **8**…" | A building number after a non-Azerbaijani street name. |
 | `S.S. AXUNDOV pr.` | "Diplomunuzu 1 **S.S. AXUNDOV pr.**-dən…" | Two initials with a space between them. |
 | `1987/01/01` | "Yubileyimiz: **1987/01/01**" | The `yyyy/mm/dd` format isn't supported yet. We didn't add it after seeing the test set, so the score stays honest. |
 | `0` / `5` (building numbers) | "…**5** ilə doldurun" | Bare single digits labelled as building numbers in the dataset. We don't mask lone digits on purpose. |

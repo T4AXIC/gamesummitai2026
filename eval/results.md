@@ -22,7 +22,7 @@ Mövzu: Unikal İmza Analizi Məktubu - Zəhmət olmasa, təhlil üçün yazıl�
   MISS SURNAME: 'İsmayılqızı' :: Mənim adım Ceyla İsmayılqızıdır və mənim 57 yaşım var. Bu təlim qrupunun bir hissəsi olmaqdan çox həyəcanlıyam.
   MISS BUILDINGNUM: '5' :: Resept formasında, zəhmət olmasa, sahələri 0U51BU4, Nisə və 5 ilə doldurun.
   MISS STREET: 'BAKI-BATUMİ küç.' :: Nəzərinizə çatdırırıq ki, Lətifə Məhərrəmzadə yüngül dəmir yolu stansiyası, BAKI-BATUMİ küç. 0 qazıntı sahəsinə ən yaxın
-| Pərdə without name detector | 41.1% | 58.9% | 96.0% |
+| Pərdə without name detector | 41.2% | 58.8% | 96.0% |
 | Generic regex baseline | 23.9% | 76.1% | 96.4% |
 Per entity (Pərdə):
 | Entity | Gold | Recall (right type) | Protected | Precision |
@@ -33,7 +33,7 @@ Per entity (Pərdə):
 | ID_NUMBER | 165 | 100.0% | 100.0% | 100.0% |
 | CARD | 25 | 100.0% | 100.0% | 100.0% |
 | DATE | 117 | 80.3% | 80.3% | 78.5% |
-| ADDRESS | 298 | 74.8% | 82.2% | 97.1% |
+| ADDRESS | 298 | 75.2% | 82.6% | 97.1% |
 ### Hand-written AZ/RU/EN cases (20 texts)
 | System | Protected (all PII) | Leak rate | Precision |
 |---|---|---|---|
