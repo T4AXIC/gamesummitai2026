@@ -91,7 +91,7 @@ Generic PII filters are built for English. Azerbaijani personal data has its own
 
 **Live demo (no install, runs in your browser):** https://huggingface.co/spaces/Traxic/perde
 
-**Demo video (56 s):** [media/perde-demo.mp4](media/perde-demo.mp4)
+**Demo video (60 s):** [media/perde-demo-v2.mp4](media/perde-demo-v2.mp4) (shorter first cut: [media/perde-demo.mp4](media/perde-demo.mp4))
 
 **Real-model test:** end-to-end with Gemma 4 E4B on a local llama.cpp server, see [TEST_RESULTS.md](TEST_RESULTS.md).
 

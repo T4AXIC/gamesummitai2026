@@ -11,6 +11,7 @@ Pərdə does not depend on any third-party PII library. The general approach (pa
 | `perde/lexicon.txt` | Derived from the dev split above | CC BY 4.0 (attribution: LocalDoc) | Given-name and surname lexicon |
 | `data/handwritten.jsonl` | Written by the team | Ours | Stress test. All people and numbers are fictional |
 | Sample texts in `app.py` | Written by the team | Ours | Demo. Fictional |
+| `demo_texts/` (56 scenarios) | Written by the team | Ours | Copy-paste demo inputs; also shown masked in the demo video. Fictional |
 
 ## AI models
 - **No model is used for detection.** Detection is rules and a lexicon, and runs locally.
@@ -27,7 +28,7 @@ Pərdə does not depend on any third-party PII library. The general approach (pa
 | @stlite/browser 1.9.2 (via jsDelivr CDN) | Apache-2.0 | Runs the Streamlit app in the browser for the live demo |
 | Pyodide (loaded by stlite) | MPL-2.0 | Python in WebAssembly for the live demo |
 | Hugging Face Spaces (static) | Hosting service | Live demo hosting |
-| Pillow, numpy, imageio-ffmpeg (FFmpeg) | HPND, BSD-3, BSD-2 (FFmpeg: LGPL/GPL) | Demo video rendering only |
+| Pillow, numpy, imageio-ffmpeg (FFmpeg), qrcode | HPND, BSD-3, BSD-2 (FFmpeg: LGPL/GPL), BSD | Demo video rendering only |
 | websockets, Google Chrome (headless) | BSD-3, proprietary | Screenshots for the demo video only |
 | Segoe UI, Cascadia Mono fonts | Windows system fonts (Cascadia: OFL) | Text in the demo video |
 
@@ -39,4 +40,4 @@ The code and documentation were written with the help of an AI coding assistant 
 - No results are cached. The evaluation numbers come from `eval/evaluate.py` and are stored in `eval/results.json`.
 
 ## Demo video
-`media/perde-demo.mp4` was rendered by `tools/video/render.py` during the hackathon (screenshots by `tools/video/capture.py`). The app footage is real screenshots of the running app, using the offline model. The tags shown come from the real masking engine. The soundtrack is synthesized in code, with no third-party music.
+`media/perde-demo-v2.mp4` (main, 60 s) and `media/perde-demo.mp4` (first cut, 56 s) were rendered by `tools/video/render_v2.py` and `tools/video/render.py` during the hackathon (screenshots by `tools/video/capture.py`). The app footage is real screenshots of the running app, using the offline model. The tags shown come from the real masking engine. The soundtrack is synthesized in code, with no third-party music.
