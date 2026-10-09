@@ -52,6 +52,11 @@ def iban_ok(iban: str) -> bool:
     return int(num) % 97 == 1
 
 
+def _switches(code: str) -> int:
+    """Number of letter/digit switches in a code: 6TR9K2L -> 5, ABC1234 -> 1."""
+    return sum(a.isdigit() != b.isdigit() for a, b in zip(code, code[1:]))
+
+
 def _context(text: str, start: int, end: int, words: tuple[str, ...], window: int = 40) -> bool:
     around = text[max(0, start - window):min(len(text), end + window)].lower()
     return any(w in around for w in words)
@@ -95,6 +100,7 @@ _ADDRESS = re.compile(
 
 VOEN_CONTEXT = ("vöen", "voen", "воен", "vergi", "tax id", "инн")
 CARD_CONTEXT = ("kart", "card", "карт", "visa", "mastercard")
+PHONE_CONTEXT = ("tel", "zəng", "phone", "телефон", "звон")
 FIN_CONTEXT = ("fin", "фин", "şəxsiyyət", "vəsiqə", "pin", "fərdi identifikasiya")
 
 
@@ -126,11 +132,15 @@ def detect_patterns(text: str) -> list[Span]:
                 add(m, "CARD", 0.7, "card_context")
     for m in _VOEN.finditer(text):
         has_ctx = _context(text, m.start(), m.end(), VOEN_CONTEXT)
-        if has_ctx or m.group()[-1] in "12":
+        phone_ctx = _context(text, m.start(), m.end(), PHONE_CONTEXT)
+        if has_ctx or (m.group()[-1] in "12" and not phone_ctx):
             add(m, "VOEN", 0.95 if has_ctx else 0.6, "voen")
     for m in _FIN.finditer(text):
         has_ctx = _context(text, m.start(), m.end(), FIN_CONTEXT)
-        add(m, "FIN", 0.95 if has_ctx else 0.65, "fin")
+        # FIN codes mix letters and digits (6TR9K2L). Without context, skip codes with a
+        # single letter-to-digit switch such as ABC1234 or COVID19.
+        if has_ctx or _switches(m.group()) >= 2:
+            add(m, "FIN", 0.95 if has_ctx else 0.65, "fin")
     for m in _PLATE.finditer(text):
         add(m, "CAR_PLATE", 0.85, "az_plate")
     for m in _DATE.finditer(text):

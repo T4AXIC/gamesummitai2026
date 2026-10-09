@@ -33,6 +33,16 @@ def test_voen_needs_context_or_valid_suffix():
     assert "VOEN" not in entities("Sifariş nömrəsi 5550001119")
 
 
+def test_product_codes_are_not_fin():
+    assert "FIN" not in entities("Kod ABC1234, COVID19 testi")
+    assert entities("FIN kodum ABC1234")["FIN"] == "ABC1234"
+    assert entities("kod 6TR9K2L")["FIN"] == "6TR9K2L"
+
+
+def test_ten_digits_next_to_phone_words_are_not_voen():
+    assert "VOEN" not in entities("telefon 4111111111")
+
+
 def test_card_luhn():
     assert luhn_ok("4111111111111111")
     assert "CARD" in entities("Ödəniş 4111 1111 1111 1111 ilə")
