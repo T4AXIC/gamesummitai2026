@@ -50,7 +50,7 @@ def mask(text: str, entities: tuple[str, ...] = ALL_ENTITIES, min_score: float =
     parts: list[str] = []
     cursor = 0
     for s in spans:
-        key = (s.entity, _normalize(s.text))
+        key = _key(s)
         tag = value_to_tag.get(key)
         if tag is None:
             counters[s.entity] = counters.get(s.entity, 0) + 1
@@ -63,7 +63,7 @@ def mask(text: str, entities: tuple[str, ...] = ALL_ENTITIES, min_score: float =
     result = MaskResult(text, "".join(parts), spans)
     seen: set[str] = set()
     for s in spans:
-        tag = value_to_tag[(s.entity, _normalize(s.text))]
+        tag = value_to_tag[_key(s)]
         if tag not in seen:
             result.mapping[tag] = s.text
             seen.add(tag)
@@ -97,6 +97,13 @@ def leaked_values(outgoing: str, mapping: dict[str, str]) -> list[str]:
         elif len(core) >= 7 and any(core in n for n in out_numbers):
             leaks.append(value)
     return leaks
+
+
+def _key(span: Span) -> tuple[str, str]:
+    """Same person or number gets the same tag: phones compare by their last 9 digits."""
+    if span.entity == "PHONE":
+        return span.entity, re.sub(r"\D", "", span.text)[-9:]
+    return span.entity, _normalize(span.text)
 
 
 def _normalize(s: str) -> str:

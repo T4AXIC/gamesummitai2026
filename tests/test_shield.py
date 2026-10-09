@@ -43,6 +43,11 @@ def test_same_value_gets_same_tag():
     assert r.masked.count("[PERSON_1]") == 2
 
 
+def test_same_phone_in_two_formats_gets_one_tag():
+    r = mask("Zəng: 050 123 45 67 və ya +994501234567")
+    assert r.masked.count("[PHONE_1]") == 2
+
+
 def test_restore_tolerates_model_formatting():
     r = mask("Telefon +994 55 765 43 21")
     assert restore("Nömrə: [ phone_1 ]", r.mapping) == "Nömrə: +994 55 765 43 21"
