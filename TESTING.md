@@ -19,6 +19,8 @@ Out of scope: city, time, age and zip code. These are not personal data on their
 
 ## Baselines
 
+0. **Today's practice: pasting the raw text into a chatbot.** Nothing is masked, so 100% of the personal values reach the provider. Redacting by hand is the alternative; we did not time it, so we make no claim about its speed.
+
 1. **Generic regex baseline.** E-mail, any long digit sequence as a phone number, and ISO and slash dates. This is roughly what a default, non-localised filter catches.
 2. **Pərdə without the name detector.** An ablation that shows what the Azerbaijani name handling adds.
 
@@ -60,9 +62,10 @@ Out of scope: city, time, age and zip code. These are not personal data on their
 | `1987/01/01` | "Yubileyimiz: **1987/01/01**" | The `yyyy/mm/dd` format isn't supported yet. We didn't add it after seeing the test set, so the score stays honest. |
 | `0` / `5` (building numbers) | "…**5** ilə doldurun" | Bare single digits labelled as building numbers in the dataset. We don't mask lone digits on purpose. |
 
-What changed during development (on dev only), and what each change did to leak rate on dev:
+What changed during development (on dev only), and what each change did to leak rate on dev. These numbers come from runs during development (`python eval/evaluate.py --split dev`); the intermediate code versions are not all kept:
 - Names: added the lexicon, case-ending stripping and greeting/title context. Leak rate went from 52.9% to 12.2%.
 - IDs: allowed `I`/`O` in FIN, added `AZE`+7 digits and the driver-licence pattern. Leak rate went from 12.2% to 5.5%.
+- After the first held-out run, a code review found two bugs in the Government demo sample: a house number before a full stop, and a bracketed landline. Fixing them moved held-out addresses from 82.2% to 82.6%. Nothing else changed.
 
 ## Limitations (stated honestly)
 
