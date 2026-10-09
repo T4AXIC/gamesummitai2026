@@ -15,6 +15,14 @@ def test_az_phone_formats():
         assert "PHONE" in entities(f"Əlaqə: {phone}"), phone
 
 
+def test_bracketed_landline_masked_with_its_bracket():
+    assert entities("Tel: (012) 555 12 34")["PHONE"] == "(012) 555 12 34"
+
+
+def test_house_number_before_full_stop_is_masked():
+    assert entities("Ünvan: Sülh küçəsi 12. Tel yoxdur")["ADDRESS"] == "Sülh küçəsi 12"
+
+
 def test_iban_checksum():
     assert iban_ok("AZ21NABZ00000000137010001944")
     assert not iban_ok("AZ21NABZ00000000137010001945")

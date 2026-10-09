@@ -60,7 +60,7 @@ def _context(text: str, start: int, end: int, words: tuple[str, ...], window: in
 # --- pattern detectors ------------------------------------------------------
 
 _PHONE = re.compile(
-    r"(?<![\d+])(?:\+?\s?994|8|0)[\s\-.]?\(?(?:10|50|51|55|60|70|77|99|12|18|2\d|36)\)?"
+    r"(?<![\d+(])\(?(?:\+?\s?994|8|0)[\s\-.]?\(?(?:10|50|51|55|60|70|77|99|12|18|2\d|36)\)?"
     r"[\s\-.]?\d{3}[\s\-.]?\d{2}[\s\-.]?\d{2}(?!\d)"
 )
 _EMAIL = re.compile(r"\b[\w.+-]+@[\w-]+(?:\.[\w-]+)+\b")
@@ -88,7 +88,7 @@ _NAME_WORD = rf"(?:[{AZ_UPPER}]\.\s?)?[{AZ_UPPER}][{AZ_UPPER}{AZ_LOWER}]+"
 _NUM = r"\d{1,4}[A-Za-z]?"
 _ADDRESS = re.compile(
     rf"(?:\b{_NUM},?\s)?{_NAME_WORD}(?:\s{_NAME_WORD}){{0,2}}\s{_STREET_WORD}"
-    rf"(?:,?\s*(?:ev|bina|mənzil|m\.)?\s*{_NUM}(?![\d.]))?"
+    rf"(?:,?\s*(?:ev|bina|mənzil|m\.)?\s*{_NUM}(?!\d|\.\d))?"
     rf"(?:\s*,?\s*(?:mənzil|m\.)\s*\d{{1,4}})?"
     r"|(?:ул\.|улица|проспект|пр-т)\s?[А-ЯЁ][а-яё]+(?:\s[А-ЯЁ][а-яё]+)?(?:,?\s*(?:д\.)?\s*\d{1,4})?"
 )
