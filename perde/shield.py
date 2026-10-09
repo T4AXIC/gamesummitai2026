@@ -84,16 +84,17 @@ def restore(answer: str, mapping: dict[str, str]) -> str:
 def leaked_values(outgoing: str, mapping: dict[str, str]) -> list[str]:
     """Return original values that still appear in text about to leave the machine."""
     out_norm = _normalize(outgoing)
-    out_digits = re.sub(r"\D", "", outgoing)
+    # digits of each separate number in the outgoing text, so unrelated numbers never join up
+    out_numbers = [re.sub(r"\D", "", n) for n in re.findall(r"\+?\d[\d\s\-().]*\d", outgoing)]
     leaks = []
     for value in mapping.values():
         v = _normalize(value)
         digits = re.sub(r"\D", "", value)
         # Compare the last 9 digits so "+994 55..." and "055..." count as the same number.
         core = digits[-9:]
-        if v and v in out_norm:
+        if v and re.search(rf"(?<!\w){re.escape(v)}(?!\w)", out_norm):
             leaks.append(value)
-        elif len(core) >= 7 and core in out_digits:
+        elif len(core) >= 7 and any(core in n for n in out_numbers):
             leaks.append(value)
     return leaks
 

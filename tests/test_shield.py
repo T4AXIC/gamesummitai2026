@@ -54,6 +54,12 @@ def test_no_leak_after_masking():
     assert leaked_values(r.masked, r.mapping) == []
 
 
+def test_leak_check_ignores_values_inside_other_words_and_numbers():
+    r = mask("Əli zəng etdi, tel +994 55 765 43 21")
+    assert leaked_values("Bəli/xeyr cavabı ver", r.mapping) == []
+    assert leaked_values("Tarix 2024-55-76, kod 54 321", r.mapping) == []
+
+
 def test_gateway_masks_personal_data_in_the_task_too(tmp_path, monkeypatch):
     from perde import gateway
     monkeypatch.setattr(gateway, "AUDIT_PATH", tmp_path / "audit.jsonl")
