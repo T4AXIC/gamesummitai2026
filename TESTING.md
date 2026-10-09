@@ -4,7 +4,7 @@
 
 - **Protected:** the share of labelled personal values in which at least 90% of the characters were masked, by any detector. **Leak rate = 1 − protected.** This is the number that matters for privacy.
 - **Recall (right type):** the share of labelled values masked by a detector of the correct type (at least 50% of characters).
-- **Precision:** the share of our detections that overlap a labelled personal value. A false alarm masks harmless text; it does not leak anything.
+- **Precision:** the share of our detections that hit a labelled in-scope value of the same type. Detections that touch only out-of-scope labels (city, time, age, zip) are left out of the count. A false alarm masks harmless text; it does not leak anything.
 
 ## Data
 
@@ -28,18 +28,18 @@ Out of scope: city, time, age and zip code. These are not personal data on their
 
 | System | Protected | Leak rate | Precision |
 |---|---|---|---|
-| **Pərdə** | **94.9%** | **5.1%** | 93.0% |
-| Pərdə without name detector | 41.2% | 58.8% | 96.0% |
-| Generic regex baseline | 23.9% | 76.1% | 96.4% |
+| **Pərdə** | **94.9%** | **5.1%** | 92.8% |
+| Pərdə without name detector | 41.2% | 58.8% | 95.8% |
+| Generic regex baseline | 23.9% | 76.1% | 72.9% |
 
 | Entity | Values | Recall (right type) | Protected | Precision |
 |---|---|---|---|---|
-| PERSON | 1,144 | 97.2% | 97.4% | 90.6% |
+| PERSON | 1,144 | 97.2% | 97.4% | 90.4% |
 | PHONE | 184 | 100.0% | 100.0% | 100.0% |
 | EMAIL | 132 | 100.0% | 100.0% | 99.2% |
 | ID_NUMBER | 165 | 100.0% | 100.0% | 100.0% |
 | CARD | 25 | 100.0% | 100.0% | 100.0% |
-| DATE | 117 | 80.3% | 80.3% | 78.5% |
+| DATE | 117 | 80.3% | 80.3% | 77.7% |
 | ADDRESS | 298 | 75.2% | 82.6% | 97.1% |
 
 ## Results: hand-written cases (20 texts)
@@ -48,7 +48,7 @@ Out of scope: city, time, age and zip code. These are not personal data on their
 |---|---|---|---|
 | **Pərdə** | **98.7%** | 1.3% | 96.6% |
 | Pərdə without name detector | 56.6% | 43.4% | 100.0% |
-| Generic regex baseline | 28.9% | 71.1% | 100.0% |
+| Generic regex baseline | 28.9% | 71.1% | 59.1% |
 
 ## Real failures (held-out test and hand-written set)
 
@@ -65,6 +65,7 @@ Out of scope: city, time, age and zip code. These are not personal data on their
 What changed during development (on dev only), and what each change did to leak rate on dev. These numbers come from runs during development (`python eval/evaluate.py --split dev`); the intermediate code versions are not all kept:
 - Names: added the lexicon, case-ending stripping and greeting/title context. Leak rate went from 52.9% to 12.2%.
 - IDs: allowed `I`/`O` in FIN, added `AZE`+7 digits and the driver-licence pattern. Leak rate went from 12.2% to 5.5%.
+- A stricter precision count (same type, in-scope only) and two false-positive fixes tuned on dev (product codes like `ABC1234` as FIN; 10-digit numbers next to "tel" as VÖEN) moved held-out precision from 93.0% to 92.8%; protected stayed at 94.9%. The same count drops the generic baseline's precision from 96.4% to 72.9%.
 - After the first held-out run, a code review found two bugs in the Government demo sample: a house number before a full stop, and a bracketed landline. Fixing them moved held-out addresses from 82.2% to 82.6%. Nothing else changed.
 
 ## Limitations (stated honestly)
@@ -72,7 +73,7 @@ What changed during development (on dev only), and what each change did to leak 
 - **The dataset is machine-translated** from an English PII corpus, so some contexts are unnatural. That's why we added the hand-written set. The team wrote those cases itself and could see them during development, so treat that set as a smoke test, not an independent benchmark.
 - **Names that aren't in the lexicon,** appear without a surname, and don't follow a title or greeting can be missed. The planned fix is a local Azerbaijani NER model as a second detector.
 - **Dates and addresses** are the weakest types (about 80%). Free-form addresses vary a lot.
-- **Precision is 93%.** Some capitalised words that are also given names (`Ümid`, `Ulduz`, `Bahar`) get masked. This is the safe direction: harmless text is hidden, and no data leaks.
+- **Precision is 92.8%.** Some capitalised words that are also given names (`Ümid`, `Ulduz`, `Bahar`) get masked. This is the safe direction: harmless text is hidden, and no data leaks.
 - **The leak blocker** checks exact detected values only. It cannot catch a value the detectors missed.
 - **Latency:** 0.14 ms per text (1,000 texts, average 112 characters, one CPU core). The LLM call dominates the total time.
 

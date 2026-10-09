@@ -53,7 +53,7 @@ Full report with failures: **[TESTING.md](TESTING.md)**. Summary:
 
 | Test set | Pərdə: protected | Generic regex baseline | Pərdə precision |
 |---|---|---|---|
-| LocalDoc Azerbaijani PII, **1,000 held-out texts** | **94.9%** | 23.9% | 93.0% |
+| LocalDoc Azerbaijani PII, **1,000 held-out texts** | **94.9%** | 23.9% | 92.8% |
 | 20 hand-written messy AZ/RU/EN cases | 98.7% | 28.9% | 96.6% |
 
 | Entity (held-out) | Values | Protected |
