@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pərdə · Safe AI for Azerbaijani data</title>
+    <meta name="description" content="Masks Azerbaijani personal data before it reaches an AI model. Runs fully in your browser." />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@stlite/browser@1.9.2/build/stlite.css" />
+    <style>
+      body { margin: 0; background: #0e1117; color: #fafafa; font-family: system-ui, sans-serif; }
+      #loading { padding: 48px 16px; text-align: center; }
+      #loading small { color: #9aa0a6; }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div id="loading">
+        <h2>🛡️ Pərdə</h2>
+        <p>Loading Python in your browser (about 10–20 seconds on first visit)…</p>
+        <small>Everything runs on your device. No personal data is uploaded.</small>
+      </div>
+    </div>
+    <script type="module">
+      import { mount } from "https://cdn.jsdelivr.net/npm/@stlite/browser@1.9.2/build/stlite.js";
+      const files = [
+        "app.py",
+        "perde/__init__.py",
+        "perde/names.py",
+        "perde/recognizers.py",
+        "perde/shield.py",
+        "perde/gateway.py",
+        "perde/lexicon.txt",
+        "eval/results.json",
+      ];
+      mount(
+        {
+          entrypoint: "app.py",
+          requirements: [],
+          files: Object.fromEntries(files.map((f) => [f, { url: "./" + f }])),
+          streamlitConfig: {
+            "theme.primaryColor": "#e63946",
+            "client.toolbarMode": "viewer",
+          },
+        },
+        document.getElementById("root"),
+      );
+    </script>
+  </body>
+</html>

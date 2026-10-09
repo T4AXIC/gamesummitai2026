@@ -4,6 +4,7 @@ from __future__ import annotations
 import html
 import json
 import re
+import sys
 from pathlib import Path
 
 import streamlit as st
@@ -88,10 +89,17 @@ st.set_page_config(page_title="Pərdə · Safe AI for Azerbaijani data", page_ic
 with st.sidebar:
     st.header("Settings")
     sector = st.selectbox("Sector", list(SECTORS), help="Loads a sample text and a typical task.")
+    in_browser = sys.platform == "emscripten"  # static web build (stlite / Pyodide)
+    providers = ["mock"] if in_browser else list(PROVIDERS)
     provider = st.selectbox(
-        "AI provider", list(PROVIDERS), index=list(PROVIDERS).index("mock"),
+        "AI provider", providers, index=providers.index("mock"),
         help="Any OpenAI-compatible API. 'mock' runs offline. Keys come from environment variables.",
     )
+    if in_browser:
+        st.info(
+            "Web demo: runs entirely in your browser with the offline model. "
+            "To use OpenAI, Grok, Gemini or Ollama, run the app locally (run.bat) or with Docker."
+        )
     model = st.text_input("Model (optional)", value="", placeholder=PROVIDERS[provider]["model"])
     enabled = st.multiselect("Data types to protect", ALL_ENTITIES, default=list(SECTORS[sector]["entities"]))
     st.caption("Personal data is masked on this machine. Only tags like [PERSON_1] reach the AI provider.")
