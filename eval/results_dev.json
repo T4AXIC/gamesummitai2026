@@ -1,0 +1,354 @@
+{
+  "LocalDoc dev": {
+    "Pərdə": {
+      "PERSON": {
+        "n_gold": 2270,
+        "recall": 0.978,
+        "protected": 0.983,
+        "precision": 0.92,
+        "n_pred": 1909
+      },
+      "PHONE": {
+        "n_gold": 330,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 330
+      },
+      "EMAIL": {
+        "n_gold": 243,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 0.992,
+        "n_pred": 245
+      },
+      "ID_NUMBER": {
+        "n_gold": 363,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 363
+      },
+      "CARD": {
+        "n_gold": 37,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 37
+      },
+      "DATE": {
+        "n_gold": 254,
+        "recall": 0.815,
+        "protected": 0.815,
+        "precision": 0.831,
+        "n_pred": 249
+      },
+      "ADDRESS": {
+        "n_gold": 631,
+        "recall": 0.705,
+        "protected": 0.778,
+        "precision": 0.982,
+        "n_pred": 275
+      },
+      "ALL": {
+        "n_gold": 4128,
+        "recall": 0.931,
+        "protected": 0.945,
+        "precision": 0.941,
+        "n_pred": 3408
+      }
+    },
+    "Pərdə without name detector": {
+      "PERSON": {
+        "n_gold": 2270,
+        "recall": 0.0,
+        "protected": 0.007,
+        "precision": null,
+        "n_pred": 0
+      },
+      "PHONE": {
+        "n_gold": 330,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 330
+      },
+      "EMAIL": {
+        "n_gold": 243,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 0.992,
+        "n_pred": 245
+      },
+      "ID_NUMBER": {
+        "n_gold": 363,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 363
+      },
+      "CARD": {
+        "n_gold": 37,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 37
+      },
+      "DATE": {
+        "n_gold": 254,
+        "recall": 0.815,
+        "protected": 0.815,
+        "precision": 0.831,
+        "n_pred": 249
+      },
+      "ADDRESS": {
+        "n_gold": 631,
+        "recall": 0.705,
+        "protected": 0.778,
+        "precision": 0.982,
+        "n_pred": 275
+      },
+      "ALL": {
+        "n_gold": 4128,
+        "recall": 0.394,
+        "protected": 0.409,
+        "precision": 0.967,
+        "n_pred": 1499
+      }
+    },
+    "Generic regex baseline": {
+      "PERSON": {
+        "n_gold": 2270,
+        "recall": 0.0,
+        "protected": 0.0,
+        "precision": null,
+        "n_pred": 0
+      },
+      "PHONE": {
+        "n_gold": 330,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 0.56,
+        "n_pred": 589
+      },
+      "EMAIL": {
+        "n_gold": 243,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 0.992,
+        "n_pred": 245
+      },
+      "ID_NUMBER": {
+        "n_gold": 363,
+        "recall": 0.0,
+        "protected": 0.143,
+        "precision": null,
+        "n_pred": 0
+      },
+      "CARD": {
+        "n_gold": 37,
+        "recall": 0.0,
+        "protected": 1.0,
+        "precision": null,
+        "n_pred": 0
+      },
+      "DATE": {
+        "n_gold": 254,
+        "recall": 0.465,
+        "protected": 0.815,
+        "precision": 0.959,
+        "n_pred": 123
+      },
+      "ADDRESS": {
+        "n_gold": 631,
+        "recall": 0.0,
+        "protected": 0.109,
+        "precision": null,
+        "n_pred": 0
+      },
+      "ALL": {
+        "n_gold": 4128,
+        "recall": 0.167,
+        "protected": 0.227,
+        "precision": 0.722,
+        "n_pred": 957
+      }
+    }
+  },
+  "Hand-written AZ/RU/EN cases": {
+    "Pərdə": {
+      "PERSON": {
+        "n_gold": 33,
+        "recall": 0.97,
+        "protected": 0.97,
+        "precision": 0.9,
+        "n_pred": 20
+      },
+      "PHONE": {
+        "n_gold": 9,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 9
+      },
+      "EMAIL": {
+        "n_gold": 4,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 4
+      },
+      "ID_NUMBER": {
+        "n_gold": 14,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 14
+      },
+      "CARD": {
+        "n_gold": 3,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 3
+      },
+      "DATE": {
+        "n_gold": 3,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 3
+      },
+      "ADDRESS": {
+        "n_gold": 10,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 5
+      },
+      "ALL": {
+        "n_gold": 76,
+        "recall": 0.987,
+        "protected": 0.987,
+        "precision": 0.966,
+        "n_pred": 58
+      }
+    },
+    "Pərdə without name detector": {
+      "PERSON": {
+        "n_gold": 33,
+        "recall": 0.0,
+        "protected": 0.0,
+        "precision": null,
+        "n_pred": 0
+      },
+      "PHONE": {
+        "n_gold": 9,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 9
+      },
+      "EMAIL": {
+        "n_gold": 4,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 4
+      },
+      "ID_NUMBER": {
+        "n_gold": 14,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 14
+      },
+      "CARD": {
+        "n_gold": 3,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 3
+      },
+      "DATE": {
+        "n_gold": 3,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 3
+      },
+      "ADDRESS": {
+        "n_gold": 10,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 5
+      },
+      "ALL": {
+        "n_gold": 76,
+        "recall": 0.566,
+        "protected": 0.566,
+        "precision": 1.0,
+        "n_pred": 38
+      }
+    },
+    "Generic regex baseline": {
+      "PERSON": {
+        "n_gold": 33,
+        "recall": 0.0,
+        "protected": 0.0,
+        "precision": null,
+        "n_pred": 0
+      },
+      "PHONE": {
+        "n_gold": 9,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 0.5,
+        "n_pred": 18
+      },
+      "EMAIL": {
+        "n_gold": 4,
+        "recall": 1.0,
+        "protected": 1.0,
+        "precision": 1.0,
+        "n_pred": 4
+      },
+      "ID_NUMBER": {
+        "n_gold": 14,
+        "recall": 0.0,
+        "protected": 0.214,
+        "precision": null,
+        "n_pred": 0
+      },
+      "CARD": {
+        "n_gold": 3,
+        "recall": 0.0,
+        "protected": 1.0,
+        "precision": null,
+        "n_pred": 0
+      },
+      "DATE": {
+        "n_gold": 3,
+        "recall": 0.0,
+        "protected": 1.0,
+        "precision": null,
+        "n_pred": 0
+      },
+      "ADDRESS": {
+        "n_gold": 10,
+        "recall": 0.0,
+        "protected": 0.0,
+        "precision": null,
+        "n_pred": 0
+      },
+      "ALL": {
+        "n_gold": 76,
+        "recall": 0.171,
+        "protected": 0.289,
+        "precision": 0.591,
+        "n_pred": 22
+      }
+    }
+  }
+}
