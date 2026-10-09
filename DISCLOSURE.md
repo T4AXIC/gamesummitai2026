@@ -1,7 +1,7 @@
 # Disclosure: models, data and components
 
 ## Written during the hackathon
-All code in `perde/`, `app.py`, `eval/` and `tests/`: the detectors, masking and restoration, gateway, UI, evaluation and tests.
+All code in `perde/`, `app.py`, `index.html`, `eval/`, `tests/`, `tools/video/`, `run.bat` and `Dockerfile`: the detectors, masking and restoration, gateway, UI, evaluation, tests, launchers and video tooling.
 Pərdə does not depend on any third-party PII library. The general approach (pattern recognisers plus anonymise/restore) is a well-known one, used for example by Microsoft Presidio. We built our own implementation for Azerbaijani formats.
 
 ## Data
@@ -14,7 +14,8 @@ Pərdə does not depend on any third-party PII library. The general approach (pa
 
 ## AI models
 - **No model is used for detection.** Detection is rules and a lexicon, and runs locally.
-- **For the user's task:** any OpenAI-compatible chat model, chosen at runtime. Supported providers are OpenAI, xAI (Grok), Google Gemini, and local Ollama (for example `gemma3`). The default is `mock`, an offline stand-in with no external call, which is used in the demo video unless stated otherwise.
+- **For the user's task:** any OpenAI-compatible chat model, chosen at runtime. Supported providers, with their default model names: OpenAI (`gpt-4o-mini`), xAI Grok (`grok-3-mini`), Google Gemini (`gemini-2.5-flash`), local Ollama (`gemma3`) and any llama.cpp OpenAI-compatible server (`gemma-4-E4B`). The default is `mock`, an offline stand-in with no external call. The live demo and the demo video use `mock`.
+- **Tested end to end with a real model:** Gemma 4 E4B on a local llama.cpp server (see `TEST_RESULTS.md`).
 
 ## Libraries
 | Library | Licence | Use |
@@ -23,6 +24,12 @@ Pərdə does not depend on any third-party PII library. The general approach (pa
 | openai (Python SDK) | Apache-2.0 | Client for OpenAI-compatible APIs |
 | pytest | MIT | Unit tests (dev only) |
 | python:3.12-slim Docker base image | PSF and Debian licences | Container build |
+| @stlite/browser 1.9.2 (via jsDelivr CDN) | Apache-2.0 | Runs the Streamlit app in the browser for the live demo |
+| Pyodide (loaded by stlite) | MPL-2.0 | Python in WebAssembly for the live demo |
+| Hugging Face Spaces (static) | Hosting service | Live demo hosting |
+| Pillow, numpy, imageio-ffmpeg (FFmpeg) | HPND, BSD-3, BSD-2 (FFmpeg: LGPL/GPL) | Demo video rendering only |
+| websockets, Google Chrome (headless) | BSD-3, proprietary | Screenshots for the demo video only |
+| Segoe UI, Cascadia Mono fonts | Windows system fonts (Cascadia: OFL) | Text in the demo video |
 
 ## Assistance
 The code and documentation were written with the help of an AI coding assistant (Claude).
@@ -32,4 +39,4 @@ The code and documentation were written with the help of an AI coding assistant 
 - No results are cached. The evaluation numbers come from `eval/evaluate.py` and are stored in `eval/results.json`.
 
 ## Demo video
-`media/perde-demo.mp4` was rendered by a script during the hackathon. The app footage is real screenshots of the running app, using the offline model. The tags shown come from the real masking engine. The soundtrack is synthesized in code, with no third-party music.
+`media/perde-demo.mp4` was rendered by `tools/video/render.py` during the hackathon (screenshots by `tools/video/capture.py`). The app footage is real screenshots of the running app, using the offline model. The tags shown come from the real masking engine. The soundtrack is synthesized in code, with no third-party music.
