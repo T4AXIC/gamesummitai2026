@@ -12,7 +12,11 @@ PRIORITY = {
     "VOEN": 7, "FIN": 6, "DRIVER_LICENSE": 6, "ADDRESS": 5, "PERSON": 4, "CAR_PLATE": 3, "DATE": 2,
 }
 
-TAG_RE = re.compile(r"\[\s*([A-Z_]+?)_(\d+)\s*\]", re.IGNORECASE)
+_ENT = "|".join(sorted(ALL_ENTITIES, key=len, reverse=True))
+# [PERSON_1], [ person_1 ], [PERSON-1], [PERSON 1], [PERSON_01]
+TAG_RE = re.compile(rf"\[\s*({_ENT})\s*[_\- ]\s*0*(\d+)\s*\]", re.IGNORECASE)
+# PERSON_1 written without brackets (upper case only, so ordinary words are never touched)
+BARE_TAG_RE = re.compile(rf"(?<![\w\[])({_ENT})_0*(\d+)(?![\w\]])")
 
 
 @dataclass
@@ -71,14 +75,14 @@ def mask(text: str, entities: tuple[str, ...] = ALL_ENTITIES, min_score: float =
 
 
 def restore(answer: str, mapping: dict[str, str]) -> str:
-    """Put original values back. Tolerates case and spacing changes made by the model."""
+    """Put original values back. Tolerates case, spacing, dashes and missing brackets."""
     lookup = {k.upper(): v for k, v in mapping.items()}
 
     def sub(m: re.Match) -> str:
         tag = f"[{m.group(1).upper()}_{m.group(2)}]"
         return lookup.get(tag, m.group(0))
 
-    return TAG_RE.sub(sub, answer)
+    return BARE_TAG_RE.sub(sub, TAG_RE.sub(sub, answer))
 
 
 def leaked_values(outgoing: str, mapping: dict[str, str]) -> list[str]:

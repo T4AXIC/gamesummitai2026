@@ -61,6 +61,13 @@ def test_restore_tolerates_model_formatting():
     assert restore("Nömrə: [ phone_1 ]", r.mapping) == "Nömrə: +994 55 765 43 21"
 
 
+def test_restore_handles_tags_without_brackets_or_with_dashes():
+    r = mask("Aygün, ş/v AZE12345678")
+    out = restore("Salam PERSON_1, [PERSON-1], [person 1], ID_CARD_1.", r.mapping)
+    assert out == "Salam Aygün, Aygün, Aygün, AZE12345678."
+    assert restore("MYPERSON_1 PERSON_12", r.mapping) == "MYPERSON_1 PERSON_12"
+
+
 def test_no_leak_after_masking():
     text = "Rəşad Həsənov, FIN 7XK2M9P, tel 070 222 33 44, rashad@bank.az"
     r = mask(text)
