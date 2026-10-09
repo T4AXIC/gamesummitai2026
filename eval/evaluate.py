@@ -1,7 +1,7 @@
 """Measure detection quality on the held-out LocalDoc split and on hand-written cases.
 
 Usage: python eval/evaluate.py [--split test|dev] [--show-failures N]
-Writes eval/results.json and prints a Markdown table.
+Writes eval/results.json (test split) or eval/results_dev.json (dev split) and prints a Markdown table.
 
 Metrics, per entity group:
   recall      gold values masked by a detection of the right type (>=50% of characters)
@@ -178,7 +178,8 @@ def main():
             s = results[dname]["Pərdə"][g]
             if s["n_gold"]:
                 print(f"| {g} | {s['n_gold']} | {fmt(s['recall'])} | {fmt(s['protected'])} | {fmt(s['precision'])} |")
-    (ROOT / "eval" / "results.json").write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
+    out_name = "results.json" if args.split == "test" else "results_dev.json"  # the app shows results.json
+    (ROOT / "eval" / out_name).write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":
