@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-dev.txt
+      - run: pytest -q
+      - name: Held-out evaluation must reproduce the committed results
+        run: |
+          python eval/evaluate.py > /dev/null
+          git diff --exit-code eval/results.json
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t perde .
+      - name: Run container and wait for health
+        run: |
+          docker run -d --name perde -p 8501:8501 perde
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:8501/_stcore/health; then echo; break; fi
+            sleep 2
+          done
+          curl -fsS http://localhost:8501/_stcore/health
+      - name: Mask a sample inside the container
+        run: |
+          docker exec perde python -c "from perde import mask; r = mask('Salam, mən Nərmin Quliyeva, FIN 6TR9K2L, tel 055 412 33 90'); print(r.masked); assert '6TR9K2L' not in r.masked"
+      - name: Container logs
+        if: always()
+        run: docker logs perde

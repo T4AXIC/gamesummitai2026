@@ -68,7 +68,7 @@ Full report with failures: **[TESTING.md](TESTING.md)**. Summary:
 
 - The test split was fixed by seed and never used for tuning. The name lexicon was built from a separate 2,000-row dev split.
 - Reproduce with `python eval/fetch_sample.py && python eval/evaluate.py`.
-- There are 17 unit tests covering checksums, phone formats, tag consistency, restoration, the leak check and masking of the instruction field (`pytest`).
+- There are 20 unit tests covering checksums, phone formats, tag consistency, restoration, the leak check and masking of the instruction field (`pytest`).
 
 ## 4. Feasibility
 
